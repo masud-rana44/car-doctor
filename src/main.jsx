@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
 import AppLayout from "./components/AppLayout";
 import Home from "./pages/Home/Home";
 import ServiceDetails from "./pages/ServiceDetails/ServiceDetails";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+
+import "./index.css";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />{" "}
+    <Theme>
+      <RouterProvider router={router} />{" "}
+    </Theme>
   </React.StrictMode>
 );
