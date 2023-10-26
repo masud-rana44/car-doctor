@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { SectionHeader } from "../../../components/SectionHeader";
 import { ServiceCard } from "../../../components/ServiceCard";
+import { Button } from "@radix-ui/themes";
 
 export const ServiceSection = () => {
   const [services, setServices] = useState([]);
@@ -12,7 +13,7 @@ export const ServiceSection = () => {
   }, []);
 
   return (
-    <section className="py-12 bg-white sm:py-16 lg:py-28 lg:mt-10">
+    <section className="py-12 bg-white sm:py-16 lg:py-20 lg:mt-16">
       <div className="px-4 mx-auto sm:px-6 lg:px-10 max-w-7xl">
         <SectionHeader
           subtitle="Service"
@@ -24,6 +25,20 @@ export const ServiceSection = () => {
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
+      </div>
+      <div className="text-center mt-8">
+        <Button
+          style={{
+            color: "orangered",
+            border: "1px solid orangered",
+            outline: "none",
+          }}
+          size="3"
+          variant="outline"
+          highContrast
+        >
+          More Services
+        </Button>
       </div>
     </section>
   );
