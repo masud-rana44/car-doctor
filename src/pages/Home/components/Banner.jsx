@@ -29,8 +29,6 @@ const Banner = () => {
         loop
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000 }}
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
         {images.map((img, idx) => (
           <SwiperSlide key={idx} className="relative">
