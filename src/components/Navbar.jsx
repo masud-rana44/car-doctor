@@ -31,8 +31,8 @@ export const Navbar = () => {
 
   return (
     <header className="pb-6 bg-white lg:pb-0">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between h-16 lg:h-20">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-10">
+        <nav className="flex items-center justify-between h-20 lg:h-24">
           <div className="flex-shrink-0">
             <Link to="/" title="" className="flex">
               <img className="w-auto h-8 lg:h-12" src={logo} alt="" />
