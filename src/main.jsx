@@ -16,6 +16,7 @@ import Services from "./pages/Services/Services";
 import Error from "./pages/404/Error";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Checkout from "./pages/Checkout/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/services/:id",
         element: <ServiceDetails />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
       {
         path: "/appointment",

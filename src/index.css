@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn {
+    @apply bg-primary-600 text-white px-4 py-2 rounded-md;
+  }
+  .input {
+    @apply bg-white border border-white  text-gray-900 sm:text-sm
+    rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full
+    p-2.5;
+  }
+}
+
 .swiper-button-next,
 .swiper-button-prev {
   color: white;

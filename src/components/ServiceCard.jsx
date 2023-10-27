@@ -24,7 +24,7 @@ export const ServiceCard = ({ service }) => {
             Price: ${price}
           </p>
 
-          <Link to={`/services/${_id}`} state={{ service }}>
+          <Link to={`/services/${_id}`}>
             <AiOutlineArrowRight />
           </Link>
         </div>

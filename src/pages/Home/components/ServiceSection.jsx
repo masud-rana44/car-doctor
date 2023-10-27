@@ -4,6 +4,7 @@ import { Button } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../../../components/Loader";
+import { ErrorMessage } from "../../../components/ErrorMessage";
 
 export const ServiceSection = () => {
   const { isPending, error, data } = useQuery({
@@ -14,12 +15,7 @@ export const ServiceSection = () => {
 
   if (isPending) return <Loader />;
 
-  if (error || !data)
-    return (
-      <div className="text-lg min-h-screen text-center flex items-center justify-center">
-        {"An error has occurred: " + error.message}
-      </div>
-    );
+  if (error || !data) return <ErrorMessage message={error.message} />;
 
   return (
     <section className="py-12 bg-white sm:py-16 lg:py-20 lg:mt-16">
