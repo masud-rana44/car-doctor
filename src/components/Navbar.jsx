@@ -97,7 +97,7 @@ export const Navbar = () => {
               <BsBagCheck size={20} />
             </button>
             <Link
-              to="#"
+              to="/appointment"
               title=""
               className="items-center justify-center px-4 py-3 ml-10 text-base font-semibold text-orange-600 hover:text-white transition-all duration-200 border border-orange-600 rounded-md  hover:bg-orange-700 focus:bg-orange-700"
               role="button"
@@ -126,7 +126,7 @@ export const Navbar = () => {
 
             <div className="px-6 mt-6">
               <Link
-                to="#"
+                to="/appointment"
                 title=""
                 className="inline-flex justify-center px-4 py-3 text-base font-semibold text-white transition-all duration-200 bg-orange-600 border border-transparent rounded-md text-center hover:bg-orange-700 focus:bg-orange-700"
                 role="button"

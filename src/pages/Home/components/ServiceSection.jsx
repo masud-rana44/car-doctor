@@ -1,16 +1,25 @@
-import { useEffect, useState } from "react";
 import { SectionHeader } from "../../../components/SectionHeader";
 import { ServiceCard } from "../../../components/ServiceCard";
 import { Button } from "@radix-ui/themes";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { Loader } from "../../../components/Loader";
 
 export const ServiceSection = () => {
-  const [services, setServices] = useState([]);
+  const { isPending, error, data } = useQuery({
+    queryKey: ["services"],
+    queryFn: () =>
+      fetch("http://localhost:5000/services").then((res) => res.json()),
+  });
 
-  useEffect(() => {
-    fetch("services.json")
-      .then((res) => res.json())
-      .then((data) => setServices(data));
-  }, []);
+  if (isPending) return <Loader />;
+
+  if (error || !data)
+    return (
+      <div className="text-lg min-h-screen text-center flex items-center justify-center">
+        {"An error has occurred: " + error.message}
+      </div>
+    );
 
   return (
     <section className="py-12 bg-white sm:py-16 lg:py-20 lg:mt-16">
@@ -21,24 +30,27 @@ export const ServiceSection = () => {
           description="the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. "
         />
         <div className="grid grid-cols-2 gap-6  lg:gap-4 lg:grid-cols-3">
-          {services.slice(0, 6).map((service) => (
-            <ServiceCard key={service.id} service={service} />
+          {data.slice(0, 6).map((service) => (
+            <ServiceCard key={service.service_id} service={service} />
           ))}
         </div>
       </div>
       <div className="text-center mt-8">
-        <Button
-          style={{
-            color: "orangered",
-            border: "1px solid orangered",
-            outline: "none",
-          }}
-          size="3"
-          variant="outline"
-          highContrast
-        >
-          More Services
-        </Button>
+        <Link to="/services">
+          <Button
+            style={{
+              color: "orangered",
+              border: "1px solid orangered",
+              outline: "none",
+              cursor: "pointer",
+            }}
+            size="3"
+            variant="outline"
+            highContrast
+          >
+            More Services
+          </Button>
+        </Link>
       </div>
     </section>
   );

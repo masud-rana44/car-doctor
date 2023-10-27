@@ -2,7 +2,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 export const ServiceCard = ({ service }) => {
-  const { price, img, title } = service;
+  const { _id, price, img, title } = service;
 
   return (
     <div className="relative group p-4 border border-gray-200 rounded-2xl">
@@ -17,15 +17,14 @@ export const ServiceCard = ({ service }) => {
         <div>
           <h3 className="text-xs font-bold text-gray-700 sm:text-sm md:text-base">
             {title}
-            <span className="absolute inset-0" aria-hidden="true"></span>
           </h3>
         </div>
-
         <div className="flex items-center justify-between text-orange-600">
           <p className="text-xs font-bold  sm:text-sm md:text-base">
             Price: ${price}
           </p>
-          <Link to="/services">
+
+          <Link to={`/services/${_id}`} state={{ service }}>
             <AiOutlineArrowRight />
           </Link>
         </div>
