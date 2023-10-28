@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 
 export const LoginForm = () => {
+  const location = useLocation();
+
+  console.log(location);
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -100,6 +104,7 @@ export const LoginForm = () => {
                 Not have any account?{" "}
                 <Link
                   to="/register"
+                  state={location.state}
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Register here

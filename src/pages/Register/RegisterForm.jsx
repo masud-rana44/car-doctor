@@ -1,11 +1,36 @@
 import logo from "../../assets/logo.svg";
-import { Link } from "react-router-dom";
-import { Cloudinary } from "@cloudinary/url-gen";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { toast } from "react-hot-toast";
 
 export const RegisterForm = () => {
-  const cld = new Cloudinary({
-    cloud: { cloudName: import.meta.env.VITE_CLOUDINALY_CLOUDNAME },
-  });
+  const { signUp } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+
+    if (!email || !password || !confirmPassword)
+      return toast.error("Missing required fields");
+
+    if (password !== confirmPassword)
+      return toast.error("Password and Confirm Password don't match");
+
+    signUp(email, password)
+      .then((userCredentials) => {
+        if (userCredentials.user) {
+          toast.success("Account created successfully");
+          navigate(location.state || "/");
+        }
+      })
+      .catch((error) => toast.error(error.message || "Something went wrong"));
+  };
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -21,7 +46,11 @@ export const RegisterForm = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create an account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 md:space-y-6"
+              action="#"
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -62,8 +91,8 @@ export const RegisterForm = () => {
                   Confirm password
                 </label>
                 <input
-                  type="confirm-password"
-                  name="confirm-password"
+                  type="password"
+                  name="confirmPassword"
                   id="confirm-password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
