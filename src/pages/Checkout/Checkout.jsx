@@ -2,6 +2,7 @@ import { Button } from "@radix-ui/themes";
 import { PageHeader } from "../../components/PageHeader";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const Checkout = () => {
   const { state } = useLocation();
@@ -24,11 +25,22 @@ const Checkout = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ name: "masud" }),
+      body: JSON.stringify({
+        user: {
+          firstName,
+          lastName,
+          phone,
+          email,
+        },
+        service: state.service,
+      }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
-      .catch((err) => setError(err.message))
+      .catch((err) => {
+        setError(err.message);
+        toast.error(err.message);
+      })
       .finally(setIsLoading(false));
   };
 
