@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { useState } from "react";
 import { BsSearch, BsBagCheck } from "react-icons/bs";
+import { useAuth } from "../contexts/AuthContext";
+import { User } from "./User";
 
 const links = [
   {
@@ -28,6 +30,7 @@ const links = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <header className="pb-6 bg-white lg:pb-0">
@@ -77,18 +80,20 @@ export const Navbar = () => {
             )}
           </button>
 
-          <div className="hidden lg:flex lg:items-center lg:space-x-10">
-            {links.map((link) => (
-              <Link
-                key={link.url}
-                to={link.url}
-                title=""
-                className="text-base font-medium text-black transition-all duration-200 hover:text-orange-600 focus:text-orange-600"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+          {user && (
+            <div className="hidden lg:flex lg:items-center lg:space-x-10">
+              {links.map((link) => (
+                <Link
+                  key={link.url}
+                  to={link.url}
+                  title=""
+                  className="text-base font-medium text-black transition-all duration-200 hover:text-orange-600 focus:text-orange-600"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          )}
           <div className=" hidden lg:inline-flex space-x-6">
             <button>
               <BsSearch size={20} />
@@ -97,17 +102,18 @@ export const Navbar = () => {
               <BsBagCheck size={20} />
             </button>
             <Link
-              to="/appointment"
+              to={user ? "/appointment" : "/login"}
               title=""
               className="items-center justify-center px-4 py-3 ml-10 text-base font-semibold text-orange-600 hover:text-white transition-all duration-200 border border-orange-600 rounded-md  hover:bg-orange-700 focus:bg-orange-700"
               role="button"
             >
-              Appointment
+              {user ? "Appointment" : "Login"}
             </Link>
+            {user && <User />}
           </div>
         </nav>
 
-        {isOpen && (
+        {user && isOpen && (
           <nav className="pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
             <div className="flow-root">
               <div className="flex flex-col px-6 -my-2 space-y-1">
