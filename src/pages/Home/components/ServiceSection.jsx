@@ -10,7 +10,9 @@ export const ServiceSection = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["services"],
     queryFn: () =>
-      fetch("http://localhost:5000/services").then((res) => res.json()),
+      fetch("http://localhost:5000/services", { credentials: "include" }).then(
+        (res) => res.json()
+      ),
   });
 
   if (isPending) return <Loader />;

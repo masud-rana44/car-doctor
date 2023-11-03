@@ -26,6 +26,19 @@ export const RegisterForm = () => {
     signUp(email, password)
       .then((userCredentials) => {
         if (userCredentials.user) {
+          // create the jwt
+          fetch("http://localhost:5000/jwt", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: userCredentials.user.email,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => console.log(data));
+
           // update the profile
           updateProfileInfo(name, image).then(() => {
             toast.success("Account created successfully");

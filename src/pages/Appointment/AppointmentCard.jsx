@@ -8,7 +8,7 @@ export const AppointmentCard = ({ app }) => {
   const [status, setStatus] = useState("unpaid");
 
   useEffect(() => {
-    updateBooking(app._id, { status });
+    updateBooking(app._id, status);
   }, [app._id, updateBooking, status]);
 
   return (
