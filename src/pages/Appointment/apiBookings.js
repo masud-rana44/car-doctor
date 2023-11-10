@@ -1,5 +1,8 @@
 export async function fetchBookings(email) {
-  const response = await fetch(`http://localhost:5000/bookings?email=${email}`);
+  const response = await fetch(
+    `http://localhost:5000/bookings?email=${email}`,
+    { credentials: "include" }
+  );
   const data = await response.json();
   return data;
 }

@@ -17,7 +17,32 @@ const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log(user);
+      if (user) {
+        const email = user?.email;
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => res.json())
+          .then((token) => console.log(token));
+      } else {
+        const res = await fetch("http://localhost:5000/logout", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        console.log(data);
+      }
+
       setUser(user);
       setIsLoading(false);
     });
