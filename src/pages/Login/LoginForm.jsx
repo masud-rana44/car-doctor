@@ -20,20 +20,6 @@ export const LoginForm = () => {
     try {
       const userCredentials = await signIn(email, password);
 
-      // create the jwt
-      fetch("http://localhost:5000/jwt", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          email: userCredentials.user.email,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-
       toast.success(`Welcome ${userCredentials?.user?.displayName}`);
       navigate(location.state || "/");
     } catch (error) {

@@ -26,18 +26,14 @@ export const RegisterForm = () => {
     signUp(email, password)
       .then((userCredentials) => {
         if (userCredentials.user) {
-          // create the jwt
+          // generate jwt token
           fetch("http://localhost:5000/jwt", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              email: userCredentials.user.email,
-            }),
-          })
-            .then((res) => res.json())
-            .then((data) => console.log(data));
+            body: JSON.stringify({ email: userCredentials.user.email }),
+          }).then((res) => res.json()).then(token => console.log(token))
 
           // update the profile
           updateProfileInfo(name, image).then(() => {

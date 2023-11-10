@@ -5,7 +5,6 @@ export async function fetchBookings(email) {
 }
 
 export async function updateBooking(id, updatedData) {
-  console.log(id, updateBooking);
   const response = await fetch(`http://localhost:5000/bookings/${id}`, {
     method: "PATCH",
     "content-type": "application/json",

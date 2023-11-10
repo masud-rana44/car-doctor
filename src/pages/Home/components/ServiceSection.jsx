@@ -9,10 +9,13 @@ import { ErrorMessage } from "../../../components/ErrorMessage";
 export const ServiceSection = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["services"],
-    queryFn: () =>
-      fetch("http://localhost:5000/services", { credentials: "include" }).then(
-        (res) => res.json()
-      ),
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/services");
+
+      if (!res.ok) throw new Error("Something went wrong" + res.statusText);
+
+      return res.json();
+    },
   });
 
   if (isPending) return <Loader />;

@@ -3,11 +3,13 @@ import { PageHeader } from "../../components/PageHeader";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Checkout = () => {
   const { state } = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const { user } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,6 +81,8 @@ const Checkout = () => {
             className="input"
             type="text"
             name="email"
+            value={user?.email}
+            readOnly
             disabled={isLoading}
             placeholder="Your Email"
           />
